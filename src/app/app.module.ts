@@ -3,16 +3,23 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
+import { RenderLolsComponent } from './render-lols/render-lols.component';
+import { FetchLolService } from './fetch-lol.service';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RenderLolsComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    FetchLolService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
