@@ -17,28 +17,19 @@ export class FetchLolService {
 
   fetchLol(): Observable<LolData> {
     console.log('Start fetching');
-    return this.httpClient.get<LolData>('http://tclhost.com/1bTelKB.gif')
+    return this.httpClient.get<LolData>('http://localhost:3000/random')
       .do(res =>
         console.log('Response', res),
         error => {
           console.log('Error', error);
           console.log('url:', error.url);
-          this.extractLolData(error);
         })
       .map( res => this.extractLolData(res));
 
   }
 
   private extractLolData(res): LolData {
-    console.log('extracting Data');
-    const headline = res.url;
-    const imgUrl = res.url;
-    /*const headlineTag = body.match(/<h3>(.*?)<\/hr>/);
-    const headline = headlineTag[2];
-    const imageTag = body.match(/<p class="e"><img src="(.*?)"/);
-    const imgUrl = imageTag[2];*/
-    const data = new LolData(headline, imgUrl);
-    console.log('Data', data);
-    return data;
+    return new LolData(res.resHeaderLocation, res.resHeadline, res.resGifUrl, res.resGif.data);
   }
+
 }

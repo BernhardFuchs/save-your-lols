@@ -14,7 +14,7 @@ export class RenderLolsComponent implements OnInit {
 
   lolData$: Observable<Object>;
   ngOnInit() {
-    this.lolData$ = this.fetchLolService.renderGif();
+    this.lolData$ = this.fetchLolService.fetchLol();
   }
 
 }
