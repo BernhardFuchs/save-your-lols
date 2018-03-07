@@ -29,7 +29,7 @@ export class FetchLolService {
   }
 
   private extractLolData(res): LolData {
-    return new LolData(res.resHeaderLocation, res.resHeadline, res.resGifUrl, res.resGif.data);
+    return new LolData(res.location, res.headline, res.gifUrl, res.gifData.data);
   }
 
 }
