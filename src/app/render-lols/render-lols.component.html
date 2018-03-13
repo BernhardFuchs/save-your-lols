@@ -1,0 +1,7 @@
+<button (click)="fetchGif()">Fetch Gif</button>
+<ng-container *ngIf="(lolData$ | async) as lolData">
+    <h3>{{ lolData.headline }}</h3>
+    <img src="{{ lolData.imgUrl }}" alt="Waiting for Gif"/>
+    <button (click)="saveGif(lolData)">Save Gif</button>
+    <pre>{{lolData | json}}</pre>
+</ng-container>
