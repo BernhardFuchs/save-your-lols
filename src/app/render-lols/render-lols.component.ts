@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { LolData } from '../lolData.model';
 import { FetchLolService } from '../fetch-lol.service';
 import { Observable } from 'rxjs/Observable';
-import * as isGif from 'is-gif';
 import { gen_anim } from './gif-service';
 import * as FileSaver from 'file-saver';
 
@@ -13,26 +12,21 @@ import * as FileSaver from 'file-saver';
 })
 export class RenderLolsComponent implements OnInit {
 
-  gifCreated = false;
+  lolData$: Observable<LolData>;
 
   constructor(
-    private fetchLolService: FetchLolService,
-    // private fileSaver: FileSaver
+    private fetchLolService: FetchLolService
   ) { }
 
-  lolData$: Observable<LolData>;
-  ngOnInit() {
+  ngOnInit() { }
+
+  fetchGif() {
     this.lolData$ = this.fetchLolService.fetchLol();
   }
 
-  parseGif(buffer) {
+  saveGif(buffer) {
     console.log(buffer);
-    // console.log('Is Gif: ', isGif(buffer));
     FileSaver.saveAs(new Blob(gen_anim(buffer)), './_tmp.gif');
-  }
-
-  renderGif() {
-    this.gifCreated = true;
   }
 
 }

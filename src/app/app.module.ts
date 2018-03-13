@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { RenderLolsComponent } from './render-lols/render-lols.component';
 import { FetchLolService } from './fetch-lol.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { FetchLolServiceMock } from './fetch-lol.service.mock';
 
 
 @NgModule({
@@ -18,7 +19,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     HttpClientModule
   ],
   providers: [
-    FetchLolService
+    {provide: FetchLolService, useClass: FetchLolServiceMock}
   ],
   bootstrap: [AppComponent]
 })
