@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { LolData } from './lolData.model';
+import { LolData } from './render-lols/lolData.model';
 import { Observable } from 'rxjs/Observable';
 // import { map } from 'rxjs/operators';
 import 'rxjs/add/operator/map';

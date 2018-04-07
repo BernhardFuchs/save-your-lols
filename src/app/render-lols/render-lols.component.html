@@ -1,7 +1,11 @@
-<button (click)="fetchGif()">Fetch Gif</button>
 <ng-container *ngIf="(lolData$ | async) as lolData">
-    <h3>{{ lolData.headline }}</h3>
-    <img src="{{ lolData.imgUrl }}" alt="Waiting for Gif"/>
-    <button (click)="saveGif(lolData)">Save Gif</button>
-    <pre>{{lolData | json}}</pre>
+  <mat-grid-list cols="3" rowHeight="heightpx">
+    <mat-grid-tile>
+      <h3>{{ lolData.headline }}</h3>
+      <img src="{{ lolData.imgUrl }}" alt="Waiting for Gif"/>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <!--<h3>{{ lolData.headline }}</h3>
+  <img src="{{ lolData.imgUrl }}" alt="Waiting for Gif"/>-->
 </ng-container>
+<button (click)="fetchGif()" class="mat-button">Fetch Gif</button>
