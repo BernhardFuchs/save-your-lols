@@ -11,12 +11,3 @@ export class LolData  {
         this.imgData = gifData;
     }
 }
-
-/* Server Data:
-{
-    resHeaderLocation: '',
-    resHeadline: '',
-    resGifUrl:'',
-    resGif: ''
-}
-*/
