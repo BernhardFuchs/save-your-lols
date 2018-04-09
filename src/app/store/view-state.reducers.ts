@@ -1,14 +1,14 @@
-import { ViewState } from './view.state';
+import { DataState } from './data.state';
 import { LolAction, FETCH_LOL, FETCH_LOL_SUCCESS, FETCH_LOL_ERROR } from './lol.action';
 
-const initialState: ViewState = {
+const initialState: DataState = {
   loaded: false,
   inProgress: false,
   error: undefined,
   lols: []
 };
 
-export function reducers(state: ViewState = initialState, action): ViewState {
+export function reducers(state: DataState = initialState, action): DataState {
   switch (action) {
     case FETCH_LOL: {
       return {

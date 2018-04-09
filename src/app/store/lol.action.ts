@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { ViewState } from './view.state';
+import { LolData } from '../models';
 
 export const FETCH_LOL = '[View] Fetch lols';
 export const FETCH_LOL_SUCCESS = '[View] Fetch lols success';
@@ -12,7 +12,7 @@ export class FetchLolAction implements Action {
 
 export class FetchLolSuccessAction implements Action {
   readonly type = FETCH_LOL_SUCCESS;
-  constructor(public payload: ViewState[]) {}
+  constructor(public payload: LolData[]) {}
 }
 
 export class FetchLolErrorAction implements Action {
@@ -20,4 +20,4 @@ export class FetchLolErrorAction implements Action {
   constructor(public error: any) {}
 }
 
-export type LolAction = FetchLolAction;
+export type LolAction = FetchLolAction | FetchLolSuccessAction | FetchLolErrorAction;

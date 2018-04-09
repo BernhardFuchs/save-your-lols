@@ -1,5 +1,5 @@
 import { createFeatureSelector } from '@ngrx/store';
-import { LolView } from './lol-view.model';
+import { LolView } from '../models';
 
 export const VIEW_STATE_IDENTIFIER = 'ViewState';
 

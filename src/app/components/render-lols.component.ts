@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { LolData } from './lolData.model';
-import { FetchLolService } from '../fetch-lol.service';
 import { Observable } from 'rxjs/Observable';
-import * as FileSaver from 'file-saver';
+import { Store } from '@ngrx/store';
+
+import { ViewState, FetchLolAction } from '../store';
 
 @Component({
   selector: 'app-render-lols',
@@ -11,16 +11,12 @@ import * as FileSaver from 'file-saver';
 })
 export class RenderLolsComponent implements OnInit {
 
-  lolData$: Observable<LolData>;
-
-  constructor(
-    private fetchLolService: FetchLolService
-  ) { }
+  constructor(private store: Store<ViewState>) { }
 
   ngOnInit() { }
 
   fetchGif() {
-    this.lolData$ = this.fetchLolService.fetchLol();
+    this.store.dispatch(new FetchLolAction());
   }
 
 }
