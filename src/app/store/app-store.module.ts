@@ -1,11 +1,18 @@
 import { NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
-import { VIEW_STATE_IDENTIFIER } from './view.state';
-import { reducers } from './view-state.reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { DATA_STATE_IDENTIFIER } from './data.state';
+import { reducers } from './lol.reducers';
+import { LolEffects as effects } from './lol.effects';
+import { FetchLolServiceMock } from '../services';
 
 @NgModule({
   imports: [
-    StoreModule.forFeature(VIEW_STATE_IDENTIFIER, reducers)
+    StoreModule.forFeature(DATA_STATE_IDENTIFIER, reducers),
+    EffectsModule.forFeature([effects])
+  ],
+  providers: [
+    FetchLolServiceMock
   ]
 })
 

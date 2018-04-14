@@ -1,9 +1,9 @@
 import { Action } from '@ngrx/store';
 import { LolData } from '../models';
 
-export const FETCH_LOL = '[View] Fetch lols';
-export const FETCH_LOL_SUCCESS = '[View] Fetch lols success';
-export const FETCH_LOL_ERROR = '[View] Fetch lols error';
+export const FETCH_LOL = '[Data] Fetch lols';
+export const FETCH_LOL_SUCCESS = '[Data] Fetch lols success';
+export const FETCH_LOL_ERROR = '[Data] Fetch lols error';
 
 export class FetchLolAction implements Action {
   readonly type = FETCH_LOL;

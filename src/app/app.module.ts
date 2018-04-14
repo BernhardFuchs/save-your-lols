@@ -7,9 +7,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { MatToolbarModule, MatGridListModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
-import { RenderLolsComponent } from './render-lols/render-lols.component';
-import { FetchLolService } from './fetch-lol.service';
-import { FetchLolServiceMock } from './fetch-lol.service.mock';
+import { RenderLolsComponent } from './components/render-lols.component';
+import { FetchLolService } from './services/fetch-lol.service';
+import { FetchLolServiceMock } from './services/fetch-lol.service.mock';
 import { AppStoreModule } from './store/app-store.module';
 
 

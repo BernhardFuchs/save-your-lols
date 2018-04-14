@@ -29,6 +29,8 @@ export class FetchLolServiceMock {
     for (const lolData of lols) {
       mappedLols.push(this.extractLolData(lolData));
     }
+    console.log(`Mapped Lols`, mappedLols);
+    console.log('imgdata:', mappedLols[0].imgData);
     return mappedLols;
   }
 

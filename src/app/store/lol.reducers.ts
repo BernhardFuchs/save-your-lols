@@ -8,9 +8,10 @@ const initialState: DataState = {
   lols: []
 };
 
-export function reducers(state: DataState = initialState, action): DataState {
-  switch (action) {
+export function reducers(state: DataState = initialState, action: LolAction): DataState {
+  switch (action.type) {
     case FETCH_LOL: {
+      console.log('Fetching with action: ', action);
       return {
         ...state,
         inProgress: true,
@@ -19,6 +20,7 @@ export function reducers(state: DataState = initialState, action): DataState {
       };
     }
     case FETCH_LOL_SUCCESS: {
+      console.log('Fetch success: ', action);
       return {
         ...state,
         loaded: true,
@@ -28,11 +30,12 @@ export function reducers(state: DataState = initialState, action): DataState {
       };
     }
     case FETCH_LOL_ERROR: {
+      console.log('Fetch Error: ', action);
       return {
         ...state,
         loaded: true,
         inProgress: false,
-        error: action.payload,
+        error: action.error,
         lols: undefined
       };
     }

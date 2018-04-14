@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
-import { ViewState, FetchLolAction } from '../store';
+import { FetchLolAction, DataState, getLols, getInProgress, getIsLoaded } from '../store';
+import { LolData } from '../models';
 
 @Component({
   selector: 'app-render-lols',
@@ -11,9 +12,17 @@ import { ViewState, FetchLolAction } from '../store';
 })
 export class RenderLolsComponent implements OnInit {
 
-  constructor(private store: Store<ViewState>) { }
+  lols$: Observable<LolData[]>;
+  inProgress$: Observable<boolean>;
+  loaded$: Observable<boolean>;
 
-  ngOnInit() { }
+  constructor(private store: Store<DataState>) { }
+
+  ngOnInit(): void {
+    this.lols$ = this.store.select(getLols);
+    this.inProgress$ = this.store.select(getInProgress);
+    this.loaded$ = this.store.select(getIsLoaded);
+  }
 
   fetchGif() {
     this.store.dispatch(new FetchLolAction());

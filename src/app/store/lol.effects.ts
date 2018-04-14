@@ -13,9 +13,11 @@ export class LolEffects {
 
   @Effect()
   fetchLols$ = this.actions$.ofType(FETCH_LOL)
+    .do(() => console.log('Effect started'))
     .pipe(
       exhaustMap(() => {
         return this.service.fetchLol()
+          .do((lols) => console.log(`Lols:`, lols))
           .pipe(
             map((lols) => new FetchLolSuccessAction(lols)),
             catchError((error) => {

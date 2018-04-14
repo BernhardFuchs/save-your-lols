@@ -1,11 +1,18 @@
-<ng-container *ngIf="(lolData$ | async) as lolData">
-  <mat-grid-list cols="3" rowHeight="heightpx">
-    <mat-grid-tile>
-      <h3>{{ lolData.headline }}</h3>
-      <img src="{{ lolData.imgUrl }}" alt="Waiting for Gif"/>
-    </mat-grid-tile>
-  </mat-grid-list>
-  <!--<h3>{{ lolData.headline }}</h3>
-  <img src="{{ lolData.imgUrl }}" alt="Waiting for Gif"/>-->
+<h3 *ngIf="(inProgress$ | async)">InProgress</h3>
+<h3 *ngIf="(loaded$ | async)">Loaded</h3>
+<ng-container *ngIf="(lols$ | async) as lols">
+<mat-grid-list cols="2" rowHeight="300px">
+  <mat-grid-tile
+    *ngFor="let lol of lols">
+    <h3>{{ lol.headline }}</h3>
+    <img src="{{ lol.imgUrl }}" alt="Waiting for Gif"/>
+  </mat-grid-tile>
+</mat-grid-list>
 </ng-container>
-<button (click)="fetchGif()" class="mat-button">Fetch Gif</button>
+<button (click)="fetchGif()" mat-button>Fetch Gif</button>
+
+<!--
+  [colspan]="lol.cols"
+    [rowspan]="lol.rows"
+  <h3>{{ lolData.headline }}</h3>
+  <img src="{{ lolData.imgUrl }}" alt="Waiting for Gif"/>-->
