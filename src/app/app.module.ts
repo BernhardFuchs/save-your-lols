@@ -1,25 +1,39 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-
+import { HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppComponent } from './app.component';
 import { RenderLolsComponent } from './render-lols/render-lols.component';
-import { FetchLolService } from './fetch-lol.service';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { FetchLolServiceMock } from './fetch-lol.service.mock';
+import { CounterComponent } from './counter/counter.component';
+import { FetchLolService } from './services/fetch-lol.service';
+import { AppStoreModule } from './store/app-store.module';
+import { GuiModule } from './gui.module';
+import { HeadlinesComponent } from './headlines/headlines.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    RenderLolsComponent
+    RenderLolsComponent,
+    CounterComponent,
+    HeadlinesComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument(),
+    AppStoreModule,
+    GuiModule
   ],
   providers: [
-    {provide: FetchLolService, useClass: FetchLolServiceMock}
+    {provide: FetchLolService, useClass: FetchLolService}
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,7 @@
+<mat-divider [vertical]="true"></mat-divider>
+  <ng-container *ngIf="(headlines$ | async) as headlines">
+    <ng-container *ngFor="let headline of headlines">
+      <div class="headlines"> {{headline}} </div>
+    </ng-container>
+  </ng-container>
+<mat-divider [vertical]="true"></mat-divider>

@@ -1,32 +1,53 @@
 import { Component, OnInit } from '@angular/core';
-import { LolData } from '../lolData.model';
-import { FetchLolService } from '../fetch-lol.service';
 import { Observable } from 'rxjs/Observable';
-import { gen_anim } from './gif-service';
-import * as FileSaver from 'file-saver';
+import { Store } from '@ngrx/store';
+import { ObservableMedia } from '@angular/flex-layout';
+import 'rxjs/add/operator/startWith';
+
+import { FetchLolAction, DataState, getInProgress, getIsLoaded, getDisplayedLols } from '../store';
+import { LolData } from '../models';
 
 @Component({
   selector: 'app-render-lols',
   templateUrl: './render-lols.component.html',
-  styleUrls: ['./render-lols.component.css']
+  styleUrls: ['./render-lols.component.scss']
 })
 export class RenderLolsComponent implements OnInit {
 
-  lolData$: Observable<LolData>;
+  lols$: Observable<LolData[]>;
+  inProgress$: Observable<boolean>;
+  loaded$: Observable<boolean>;
+  cols$: Observable<number>;
 
-  constructor(
-    private fetchLolService: FetchLolService
-  ) { }
+  constructor(private store$: Store<DataState>,
+              private observableMedia$: ObservableMedia) { }
 
-  ngOnInit() { }
+  ngOnInit(): void {
+    this.lols$ = this.store$.select(getDisplayedLols);
+    this.inProgress$ = this.store$.select(getInProgress);
+    this.loaded$ = this.store$.select(getIsLoaded);
 
-  fetchGif() {
-    this.lolData$ = this.fetchLolService.fetchLol();
+    const colMap = new Map([
+      ['xs', 1],
+      ['sm', 2],
+      ['md', 3],
+      ['lg', 4],
+      ['xl', 5],
+    ]);
+    let startCol: number;
+    colMap.forEach((cols, mgAlias) => {
+      if (this.observableMedia$.isActive(mgAlias)) {
+        startCol = cols;
+      }
+    });
+    this.cols$ = this.observableMedia$.asObservable()
+      .map(change => {
+        return colMap.get(change.mqAlias);
+      }).startWith(startCol);
   }
 
-  saveGif(buffer) {
-    console.log(buffer);
-    FileSaver.saveAs(new Blob(gen_anim(buffer)), './_tmp.gif');
+  fetchGif() {
+    this.store$.dispatch(new FetchLolAction());
   }
 
 }
