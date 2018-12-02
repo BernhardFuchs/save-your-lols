@@ -7,12 +7,11 @@ export const FETCH_LOL_ERROR = '[Data] Fetch lols error';
 
 export class FetchLolAction implements Action {
   readonly type = FETCH_LOL;
-  constructor() {}
 }
 
 export class FetchLolSuccessAction implements Action {
   readonly type = FETCH_LOL_SUCCESS;
-  constructor(public payload: LolData[]) {}
+  constructor(public payload: LolData) {}
 }
 
 export class FetchLolErrorAction implements Action {

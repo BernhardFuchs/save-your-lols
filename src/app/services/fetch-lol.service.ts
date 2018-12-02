@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { LolData } from '../models';
 import { Observable } from 'rxjs/Observable';
-// import { map } from 'rxjs/operators';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 
@@ -21,7 +20,6 @@ export class FetchLolService {
           console.log('url:', error.url);
         })
       .map( res => this.extractLolData(res));
-
   }
 
   private extractLolData(res): LolData {

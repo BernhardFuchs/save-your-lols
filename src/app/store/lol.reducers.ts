@@ -1,14 +1,16 @@
-import { DataState } from './data.state';
+import { DataState, ViewState } from './lol.states';
 import { LolAction, FETCH_LOL, FETCH_LOL_SUCCESS, FETCH_LOL_ERROR } from './lol.action';
+import { LolData } from '../models';
 
-const initialState: DataState = {
+const initialDataState: DataState = {
   loaded: false,
   inProgress: false,
   error: undefined,
-  lols: []
+  lols: [],
+  gifCounter: 0
 };
 
-export function reducers(state: DataState = initialState, action: LolAction): DataState {
+export function dataReducers(state: DataState = initialDataState, action: LolAction): DataState {
   switch (action.type) {
     case FETCH_LOL: {
       console.log('Fetching with action: ', action);
@@ -25,8 +27,9 @@ export function reducers(state: DataState = initialState, action: LolAction): Da
         ...state,
         loaded: true,
         inProgress: false,
-        lols: action.payload,
-        error: undefined
+        lols: [...state.lols, ...[action.payload]],
+        error: undefined,
+        gifCounter: state.gifCounter += 1
       };
     }
     case FETCH_LOL_ERROR: {
@@ -39,6 +42,34 @@ export function reducers(state: DataState = initialState, action: LolAction): Da
         lols: undefined
       };
     }
+    default:
+      return state;
   }
-  return state;
+}
+
+const initialViewState: ViewState = {
+  displayedLols: []
+};
+export function viewReducers(state: ViewState = initialViewState, action: LolAction) {
+  switch (action.type) {
+    case FETCH_LOL_SUCCESS: {
+      console.log('Updating ViewState');
+      return {
+        ...state,
+        displayedLols: addLol(state.displayedLols, action.payload)
+      };
+    }
+    default:
+      return state;
+  }
+}
+
+function addLol(currentLols: LolData[], newLol: LolData): LolData[] {
+  if (currentLols.length >= 2) {
+    currentLols.shift();
+    currentLols.push(newLol);
+  } else {
+    currentLols.push(newLol);
+  }
+  return currentLols;
 }

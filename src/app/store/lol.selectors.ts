@@ -1,16 +1,18 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
 
-import { DataState, DATA_STATE_IDENTIFIER } from './data.state';
+import { DataState, DATA_STATE_IDENTIFIER, getViewState, ViewState } from './lol.states';
+import { LolData } from '../models';
 
 const getDataState = createFeatureSelector<DataState>(DATA_STATE_IDENTIFIER);
-const fetchLolsSuccess = (dataState: DataState) => dataState.lols;
-const fetchLolsInProgress = (dataState: DataState) => dataState.inProgress;
-const fetchLolsLoaded = (dataState: DataState) => dataState.loaded;
-const fetchLolsError = (dataState: DataState) => dataState.error;
 
-export const getLols = createSelector(
+export const getDisplayedLols = createSelector(
+  getViewState,
+  (viewState: ViewState) => viewState.displayedLols
+);
+
+export const getHeadlines = createSelector(
   getDataState,
-  (dataState: DataState) => dataState.lols
+  (dataState: DataState) => dataState.lols.map((lol: LolData) => lol.headline)
 );
 
 export const getInProgress = createSelector(
@@ -26,4 +28,9 @@ export const getIsLoaded = createSelector(
 export const getError = createSelector(
   getDataState,
   (dataState: DataState) => dataState.error
+);
+
+export const getGifCounter = createSelector(
+  getDataState,
+  (dataState: DataState) => dataState.gifCounter
 );

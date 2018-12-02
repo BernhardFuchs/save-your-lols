@@ -4,12 +4,12 @@ import { catchError, exhaustMap, map } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 
 import { FETCH_LOL, FetchLolSuccessAction, FetchLolErrorAction } from './lol.action';
-import { FetchLolService, FetchLolServiceMock } from '../services';
+import { FetchLolService } from '../services';
 
 @Injectable()
 export class LolEffects {
   constructor(private actions$: Actions,
-              private service: FetchLolServiceMock) {}
+              private service: FetchLolService) {}
 
   @Effect()
   fetchLols$ = this.actions$.ofType(FETCH_LOL)
@@ -17,9 +17,9 @@ export class LolEffects {
     .pipe(
       exhaustMap(() => {
         return this.service.fetchLol()
-          .do((lols) => console.log(`Lols:`, lols))
+          .do((lol) => console.log(`Lols:`, lol))
           .pipe(
-            map((lols) => new FetchLolSuccessAction(lols)),
+            map((lol) => new FetchLolSuccessAction(lol)),
             catchError((error) => {
               return of(new FetchLolErrorAction(error));
             })
